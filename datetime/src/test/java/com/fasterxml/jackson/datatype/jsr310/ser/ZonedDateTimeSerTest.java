@@ -975,6 +975,30 @@ public class ZonedDateTimeSerTest
         assertEquals("{\"t1\":1651053600000,\"t2\":1651053600.000000000}", json1);
     }
 
+    // [dataformat-joda#92] DateTime serialization result is not same as Java 8 ZonedDateTime
+    @Test
+    public void testSerializationWithZoneWithDefaultTimeZone() throws Exception
+    {
+        ZonedDateTime java8ZonedDateTime = ZonedDateTime.of(2023, 10, 1, 12, 0, 0, 0,
+                ZoneId.of("Asia/Shanghai"));
+
+        // Without WRITE_DATES_WITH_CONTEXT_TIME_ZONE
+        assertEquals("\"2023-10-01T12:00:00+08:00\"",
+                MAPPER.writer()
+                .with(TimeZone.getTimeZone("UTC"))
+                .without(SerializationFeature.WRITE_DATES_WITH_CONTEXT_TIME_ZONE)
+                .without(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .writeValueAsString(java8ZonedDateTime));
+
+        // With WRITE_DATES_WITH_CONTEXT_TIME_ZONE
+        assertEquals("\"2023-10-01T04:00:00Z\"",
+                MAPPER.writer()
+                .with(TimeZone.getTimeZone("UTC"))
+                .with(SerializationFeature.WRITE_DATES_WITH_CONTEXT_TIME_ZONE)
+                .without(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .writeValueAsString(java8ZonedDateTime));
+    }
+
     private static void assertIsEqual(ZonedDateTime expected, ZonedDateTime actual)
     {
         assertTrue(expected.isEqual(actual),
