@@ -61,7 +61,7 @@ public class JsonCreatorTest extends ModuleTestBase
 		String json = a2q("{'first':'1st','second':'2nd'}");
 		ClassWithJsonCreatorOnStaticMethod actual = MAPPER.readValue(json, ClassWithJsonCreatorOnStaticMethod.class);
 
-		then(actual).isEqualToComparingFieldByField(new ClassWithJsonCreatorOnStaticMethod("1st", "2nd"));
+		then(actual).usingRecursiveComparison().isEqualTo(new ClassWithJsonCreatorOnStaticMethod("1st", "2nd"));
     }
 
     // [modules-base#178]

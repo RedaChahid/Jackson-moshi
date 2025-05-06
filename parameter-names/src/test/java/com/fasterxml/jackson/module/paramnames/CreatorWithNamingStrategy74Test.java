@@ -2,11 +2,11 @@ package com.fasterxml.jackson.module.paramnames;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.BDDAssertions.then;
-
 import com.fasterxml.jackson.annotation.*;
 
 import com.fasterxml.jackson.databind.*;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 // for [java8-modules#74]
 public class CreatorWithNamingStrategy74Test
@@ -43,6 +43,6 @@ public class CreatorWithNamingStrategy74Test
         // when
         Object actual = objectMapper.readValue(json, expected.getClass());
 
-        then(actual).isEqualToComparingFieldByField(expected);
+        then(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 }

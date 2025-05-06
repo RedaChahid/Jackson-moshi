@@ -1,13 +1,13 @@
 package com.fasterxml.jackson.module.paramnames;
 
+import java.io.*;
+import java.util.*;
+
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
-
-import java.io.*;
-import java.util.*;
 
 import static org.assertj.core.api.BDDAssertions.*;
 
@@ -68,7 +68,7 @@ public class DelegatingCreatorTest extends ModuleTestBase
         Map<String, String> props = new HashMap<>();
         props.put("value", "aValue");
         ClassWithDelegatingCreator expected = new ClassWithDelegatingCreator(props);
-        then(actual).isEqualToComparingFieldByField(expected);
+        then(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class DelegatingCreatorTest extends ModuleTestBase
 
         IntWrapper actual = mapper.readValue
                 ("{\"value\":13}", IntWrapper.class);
-        then(actual).isEqualToComparingFieldByField(new IntWrapper(13));
+        then(actual).usingRecursiveComparison().isEqualTo(new IntWrapper(13));
     }
 
     @Test
@@ -86,6 +86,6 @@ public class DelegatingCreatorTest extends ModuleTestBase
 
         GenericWrapper<String> actual = mapper.readValue
                 ("{\"value\":\"aValue\"}", new TypeReference<GenericWrapper<String>>() { });
-        then(actual).isEqualToComparingFieldByField(new GenericWrapper<>("aValue"));
+        then(actual).usingRecursiveComparison().isEqualTo(new GenericWrapper<>("aValue"));
     }
 }

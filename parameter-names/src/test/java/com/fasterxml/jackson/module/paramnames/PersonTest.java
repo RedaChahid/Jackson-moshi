@@ -22,7 +22,7 @@ public class PersonTest
         // then
         Person expected = new Person("joe", "smith");
         expected.setNickname("joey");
-        then(actual).isEqualToComparingFieldByField(expected);
+        then(actual).usingRecursiveComparison().isEqualTo(expected);
 
     }
 }

@@ -43,7 +43,7 @@ public class NamingStrategy67Test extends ModuleTestBase
                 "{\"first_property\":\""+MSG+"\"}",
 //                "{\"firstProperty\":\""+MSG+"\"}",
                 ClassWithOneProperty.class);
-        then(actual).isEqualToComparingFieldByField(new ClassWithOneProperty(MSG));
+        then(actual).usingRecursiveComparison().isEqualTo(new ClassWithOneProperty(MSG));
     }
 
     @Test
@@ -54,6 +54,6 @@ public class NamingStrategy67Test extends ModuleTestBase
         ClassWithTwoProperties actual = mapper.readValue("{\"a\":1, \"b\": 2}",
                 ClassWithTwoProperties.class);
 
-        then(actual).isEqualToComparingFieldByField(new ClassWithTwoProperties(1, 2));
+        then(actual).usingRecursiveComparison().isEqualTo(new ClassWithTwoProperties(1, 2));
     }
 }
