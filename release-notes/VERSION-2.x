@@ -8,7 +8,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.18.4 (not yet released)
+2.18.4 (06-May-2025)
 
 #291: `InstantDeserializer` fails to parse negative numeric timestamp strings
   for pre-1970 values
