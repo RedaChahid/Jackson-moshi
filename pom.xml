@@ -1,16 +1,31 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion> 
-  <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--<parent>
     <groupId>com.fasterxml.jackson</groupId>
     <artifactId>jackson-base</artifactId>
-    <version>2.20.0-SNAPSHOT</version>
-  </parent>
-  <groupId>com.fasterxml.jackson.module</groupId>
+    <version>2.15.2</version>
+  </parent>-->
+  <groupId>com.example</groupId>
+  <artifactId>moshi-datatype-jsr310</artifactId>
+  <version>1.0.0</version>
+
+  <!-- <groupId>com.fasterxml.jackson.module</groupId>
   <artifactId>jackson-modules-java8</artifactId>
-  <name>Jackson modules: Java 8</name>
-  <version>2.20.0-SNAPSHOT</version>
+  <version>2.15.2</version> -->
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <packaging>pom</packaging>
-  <description>Parent pom for Jackson modules needed to support Java 8 features and types
+  <name>Jackson modules: Java 8</name>
+
+  <description>
+    Parent pom for Jackson modules needed to support Java 8 features and types.
   </description>
 
   <modules>
@@ -20,69 +35,84 @@
   </modules>
 
   <url>https://github.com/FasterXML/jackson-modules-java8</url>
+
   <scm>
     <connection>scm:git:git@github.com:FasterXML/jackson-modules-java8.git</connection>
     <developerConnection>scm:git:git@github.com:FasterXML/jackson-modules-java8.git</developerConnection>
-    <url>http://github.com/FasterXML/jackson-modules-java8</url>    
+    <url>https://github.com/FasterXML/jackson-modules-java8</url>
     <tag>HEAD</tag>
   </scm>
+
   <issueManagement>
     <url>https://github.com/FasterXML/jackson-modules-java8/issues</url>
   </issueManagement>
 
   <dependencies>
-    <dependency>
+    <!--<dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
+      <version>2.15.2</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <version>2.15.2</version>
+    </dependency>
+    -->
+
+
+    <dependency>
+      <groupId>com.squareup.moshi</groupId>
+      <artifactId>moshi</artifactId>
+      <version>1.15.0</version>
     </dependency>
 
-    <!-- Test dependencies -->
+    <!-- Pour tests unitaires -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
       <scope>test</scope>
     </dependency>
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
-  <!-- Need to include snapshot reference to find snapshot of parent -->
   <repositories>
-    <!-- 13-May-2025, tatu: now access snapshots via Central Portal -->
     <repository>
-      <id>central-snapshots</id>
-      <name>Sonatype Central Portal (snapshots)</name>
-      <url>https://central.sonatype.com/repository/maven-snapshots</url>
-      <releases><enabled>false</enabled></releases>
-      <snapshots><enabled>true</enabled></snapshots>
+      <id>central</id>
+      <name>Maven Central</name>
+      <url>https://repo.maven.apache.org/maven2</url>
     </repository>
   </repositories>
 
   <build>
     <pluginManagement>
       <plugins>
-	  <plugin>
-	    <!-- Inherited from oss-base. Generate PackageVersion.java.-->
-         <groupId>com.google.code.maven-replacer-plugin</groupId>
-         <artifactId>replacer</artifactId>
-	    <executions>
+        <plugin>
+          <groupId>com.google.code.maven-replacer-plugin</groupId>
+          <artifactId>replacer</artifactId>
+          <version>1.5.3</version>
+          <executions>
             <execution>
               <id>process-packageVersion</id>
               <phase>generate-sources</phase>
+              <goals>
+                <goal>replace</goal>
+              </goals>
             </execution>
-         </executions>
-       </plugin>
-	  <plugin>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-	  </plugin>
+          <version>3.0.0-M9</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>

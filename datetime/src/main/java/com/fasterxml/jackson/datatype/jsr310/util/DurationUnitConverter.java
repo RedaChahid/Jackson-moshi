@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import static com.fasterxml.jackson.datatype.jsr310.util.DurationUnitConverter.DurationSerialization.deserializer;
 
 /**
- * Handles the conversion of the duration based on the API of {@link Duration} for a restricted set of {@link ChronoUnit}.
+ * Handles the conversion of the duration based on the API of {@link Duration} for a restricted set of {@link //ChronoUnit}.
  * Only the units considered as accurate are supported in this converter since are the only ones capable of handling
- * deserialization in a precise manner (see {@link ChronoUnit#isDurationEstimated}).
+ * deserialization in a precise manner (see {@link //ChronoUnit#isDurationEstimated}).
  *
  * @since 2.12
  */

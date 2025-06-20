@@ -8,7 +8,9 @@ public class ParameterNamesModule extends SimpleModule
     private static final long serialVersionUID = 1L;
 
     private final JsonCreator.Mode creatorBinding;
+/*
 
+        ancien constructeur
     public ParameterNamesModule(JsonCreator.Mode creatorBinding) {
         super(PackageVersion.VERSION);
         this.creatorBinding = creatorBinding;
@@ -18,6 +20,19 @@ public class ParameterNamesModule extends SimpleModule
         super(PackageVersion.VERSION);
         this.creatorBinding = null;
     }
+*/
+
+    public ParameterNamesModule(JsonCreator.Mode creatorBinding) {
+        // super(PackageVersion.VERSION); → SUPPRIMÉ
+        this.creatorBinding = creatorBinding;
+    }
+
+    public ParameterNamesModule() {
+        // super(PackageVersion.VERSION); → SUPPRIMÉ
+        this.creatorBinding = null;
+    }
+
+
 
     @Override
     public void setupModule(SetupContext context) {
